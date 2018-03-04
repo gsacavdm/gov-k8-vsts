@@ -1,6 +1,11 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.6
+FROM python:2.7-alpine
 
-ADD /src /app
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./src/ .
+
 EXPOSE 5000
-
 ENTRYPOINT ["python", "/app/main.py"]
