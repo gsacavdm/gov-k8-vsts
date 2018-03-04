@@ -1,0 +1,9 @@
+# Ignore "ignore" files (files with secrets"
+*.ignore.*
+
+# Ignore acs-engine output
+acs-engine/_output
+acs-engine/translations
+
+# Ignore vim swaps
+*.swp

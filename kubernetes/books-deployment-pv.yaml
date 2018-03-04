@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: books
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: books
+    spec:
+      containers:
+      - name: books
+        image: gsacavdm/books:v1
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: bookvolume
+          mountPath: /app/books/
+      volumes:
+      - name: bookvolume
+        azureFile:
+          secretName: azurefilebooks
+          shareName: books
+          readOnly: false
