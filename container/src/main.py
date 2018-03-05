@@ -1,12 +1,20 @@
 from flask import Flask, request, render_template
+import redis
 import os
 import random
 
 app = Flask(__name__)
 
+redis_server = os.environ['REDIS']
+redis_cnn = redis.Redis(redis_server)
+
 @app.route('/', methods=['GET'])
 def index():
-  return render_template("index.html")
+  try:
+    visits = redis_cnn.incr('visits')
+  except redis.ConnectionError:
+    visits = 'N/A'
+  return render_template("index.html", visits=visits)
 
 @app.route('/book', methods=['GET'])
 def book():
