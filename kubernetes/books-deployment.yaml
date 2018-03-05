@@ -12,6 +12,6 @@ spec:
     spec:
       containers:
       - name: books
-        image: gsacavdm/books:v1
+        image: gsacavdm/books:latest
         ports:
         - containerPort: 5000
