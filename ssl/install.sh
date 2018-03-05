@@ -4,7 +4,7 @@
 helm install stable/nginx-ingress --name sacacorp-ingress --set rbac.create=true
 
 # Get external facing IP for ingress controller
-kubectl get service sacacorp-ingress
+kubectl get service sacacorp-ingress-nginx-ingress-controller 
 
 # Add a DNS entry with your domain provider (e.g GoDaddy)
 # *** this is done via web browser ***
