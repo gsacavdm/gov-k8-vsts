@@ -5,7 +5,7 @@ import random
 
 app = Flask(__name__)
 
-redis_server = os.environ['REDIS']
+redis_server = os.environ['REDIS'] if os.environ.has_key('REDIS') else 'localhost'
 redis_cnn = redis.Redis(redis_server)
 
 @app.route('/', methods=['GET'])
