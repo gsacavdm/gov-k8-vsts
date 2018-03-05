@@ -18,6 +18,9 @@ spec:
         volumeMounts:
         - name: bookvolume
           mountPath: /app/books/
+        env:
+        - name: REDIS
+          value: "redis"
       volumes:
       - name: bookvolume
         azureFile:
