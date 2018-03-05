@@ -24,6 +24,6 @@ spec:
       volumes:
       - name: bookvolume
         azureFile:
-          secretName: azurefilebooks
+          secretName: azurefileshare
           shareName: books
           readOnly: false
