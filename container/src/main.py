@@ -21,7 +21,7 @@ def book():
   name = request.args.get('name')
   path = 'books/' + name.lower()
   with open(path) as f:
-    return f.readlines().__str__()
+    return "<br>".join(f.readlines())
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=5000)
