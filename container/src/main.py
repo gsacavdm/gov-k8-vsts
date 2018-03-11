@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 import redis
 import os
 import random
+import platform
 
 app = Flask(__name__)
 
@@ -9,6 +10,8 @@ VISITS_NAME = 'visits'
 
 redis_server = os.environ['REDIS'] if os.environ.has_key('REDIS') else 'localhost'
 redis_cnn = redis.Redis(redis_server)
+
+hostname = platform.node()
 
 def test_redis():
   try:
@@ -28,7 +31,7 @@ def index():
     except redis.ConnectionError:
       pass
 
-  return render_template("index.html", visits=visits)
+  return render_template("index.html", visits=visits, hostname=hostname)
 
 @app.route('/book', methods=['GET'])
 def book():
