@@ -1,0 +1,41 @@
+queue:
+  name: Hosted Linux Preview
+  condition: succeeded()
+steps:
+- task: Docker@0
+  displayName: Build books image
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: 'DockerHub-gsacavdm'
+    imageName: 'gsacavdm/books:$(Build.BuildId)'
+    includeLatestTag: true
+
+- task: Docker@0
+  displayName: Push books image
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: 'DockerHub-gsacavdm'
+    action: 'Push an image'
+    imageName: 'gsacavdm/books:$(Build.BuildId)'
+    includeLatestTag: true
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifact: books-deployment-pv.yaml
+  inputs:
+    PathtoPublish: 'kubernetes/books-deployment-pv.yaml'
+    ArtifactName: 'books-deployment-pv.yaml'
+
+- task: Kubernetes@0
+  displayName: kubectl apply books deployment
+  inputs:
+    kubernetesServiceConnection: 'sacagov-kube'
+    arguments: '-f $(System.DefaultWorkingDirectory)/kubernetes/books-deployment-pv.yaml'
+
+- task: Kubernetes@0
+  displayName: kubectl set books image
+  inputs:
+    kubernetesServiceConnection: 'sacagov-kube'
+    command: set
+    arguments: 'image deployment/books books=gsacavdm/books:$(Build.BuildId)'
+
+
