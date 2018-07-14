@@ -20,7 +20,7 @@ steps:
     includeLatestTag: true
 
 - task: PublishBuildArtifacts@1
-  displayName: Publish books-deployment-pv.yaml artifact
+  displayName: 'Publish books-deployment-pv.yaml artifact'
   inputs:
     PathtoPublish: 'kubernetes/books-deployment-pv.yaml'
     ArtifactName: 'books-deployment-pv.yaml'
