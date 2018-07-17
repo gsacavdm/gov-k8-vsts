@@ -27,13 +27,13 @@ steps:
 - task: Kubernetes@0
   displayName: kubectl apply books deployment
   inputs:
-    kubernetesServiceConnection: 'sacagov-kube'
+    kubernetesServiceConnection: 'sacagov-k8'
     arguments: '-f $(System.DefaultWorkingDirectory)/kubernetes/books-deployment-pv.yaml'
 
 - task: Kubernetes@0
   displayName: kubectl set books image
   inputs:
-    kubernetesServiceConnection: 'sacagov-kube'
+    kubernetesServiceConnection: 'sacagov-k8'
     command: set
     arguments: 'image deployment/books books=gsacavdm/books:$(Build.BuildId)'
 
